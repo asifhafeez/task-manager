@@ -4,26 +4,17 @@ import ReactDOM from 'react-dom';
 import App from './../App';
 import Task from './../Task';
 
+const renderer = ReactTestUtils.createRenderer();
+renderer.render(<Task description='Visit Japan!' />, 'div');
+const result = renderer.getRenderOutput();
 
-it('shows a task', () => {
-  const renderer = ReactTestUtils.createRenderer();
-  renderer.render(<Task description='Visit Japan!' />);
-  const result = renderer.getRenderOutput();
-
-  expect(result.type).toBe('div');
-  expect(result.props.description).toEqual('Visit Japan!')
+it('shows a task description', () => {
+  expect(result.props.children).toContain('Visit Japan!');
 });
 
-
-//
-//   const testTask = <Task description='Visit Japan!' />
-//   // testTask description = 'Visit Japan!';
-//   // <Task description='Visit Japan!' />
-//   expect(testTask.props.description).toEqual('Visit Japan!')
-// });
-
-// it('can say a task is done', () => {
-//   const testTask = <Task description='Visit Japan!' />
-//
-//   // testTask.done();
-//   expect(testTask.state.status).toEqual('is done')
+it('can mark a task as done', () => {
+  expect(result.props.children).not.toContain("is done");
+  const node = result.find('.button');
+  ReactTestUtils.Simulate.click(node);
+  expect(result.props.children).toContain("is done");
+});

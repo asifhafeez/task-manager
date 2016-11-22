@@ -7,7 +7,7 @@ class Task extends Component {
       <div className="Task" id="">
         {this.props.description} {this.state.status}
         <br/>
-        <button onClick={this.done}>Done!</button>
+        <button class="button" onClick={this.done}>Done!</button>
       </div>
     );
   }
