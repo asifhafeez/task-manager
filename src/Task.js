@@ -4,8 +4,22 @@ import './Task.css';
 class Task extends Component {
   render () {
     return (
-      <div className="Task">{this.props.task}</div>
+      <div className="Task" id="">
+        {this.props.description} {this.state.status}
+        <br/>
+        <button onClick={this.done}>Done!</button>
+      </div>
     );
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = { status: ""}
+    this.done = this.done.bind(this);
+  }
+
+  done() {
+    this.setState({ status: "is done"})
   }
 };
 
