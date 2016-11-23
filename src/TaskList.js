@@ -7,7 +7,7 @@ class TaskList extends Component {
   render() {
     return(
       <div className="TaskList">
-      <AddTask addTask={ this.addTask } />
+      <AddTask addTask={ this.addTask } className="addTask" />
       { this.renderTasks() }
       </div>
     );
