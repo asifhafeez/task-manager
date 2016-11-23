@@ -3,6 +3,7 @@ const express = require('express'),
       cors = require('cors'),
       app = express();
 const router = require('./router');
+var models = require('./models');
 
 var port = 3000;
 
@@ -11,5 +12,7 @@ app.use(bodyParser.json());
 app.use(cors());
 router(app);
 
-app.listen(port);
-console.log('Your server is running on port ' + port + '.');
+models.sequelize.sync().then(function() {
+  app.listen(port);
+  console.log('Your server is running on port ' + port + '.');
+});
