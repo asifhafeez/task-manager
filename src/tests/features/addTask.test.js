@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
 import ReactDOM from 'react-dom';
-import App from './../../App';
-import Task from './../../Task';
-import AddTask from './../../addTask';
-import TaskList from './../../TaskList';
+import App from './../../components/App/App';
+import Task from './../../components/App/Task';
+import AddTask from './../../components/App/addTask';
+import TaskList from './../../components/App/TaskList';
 
 it('can add a task', function () {
   const taskList = ReactTestUtils.renderIntoDocument(<TaskList/>);
