@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
 import ReactDOM from 'react-dom';
-import App from './../App';
-import Task from './../Task';
+import App from './../components/App/App';
+import Task from './../components/App/Task';
 
 it('shows a task description', () => {
   const renderer = ReactTestUtils.createRenderer();
