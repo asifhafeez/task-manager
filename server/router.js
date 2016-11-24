@@ -7,7 +7,9 @@ module.exports = function(app) {
   apiRoutes.get('/tasks', _ourController.tasks);
   apiRoutes.post('/tasks', _ourController.newTask);
   app.use('/api', apiRoutes);
+
   const homepage = express.Router();
   app.use('', homepage)
-  homepage.get('/', _ourController.homepage)
+  app.use(express.static('public'));
+  homepage.get('/',  _ourController.homepage)
 }

@@ -1,5 +1,4 @@
 var models = require('../models');
-var homepagePath = require('/../views/index.ejs');
 
 exports.index = function (req, res, next) {
   res.status(200).json({
@@ -23,6 +22,5 @@ exports.newTask = function (req, res, next) {
 }
 
 exports.homepage = function(req, res, next) {
-  console.log(path('/../views/index.ejs'))
-  res.sendFile(homepagePath)
+  res.redirect('/build/index.html');
 }
