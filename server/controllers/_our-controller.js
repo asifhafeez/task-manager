@@ -15,12 +15,13 @@ exports.tasks = function (req, res, next) {
 }
 
 exports.newTask = function (req, res, next) {
-    models.Task.create({description: req.query.description, status: req.query.status
+    console.log(req)
+    models.Task.create({description: req.body.description, status: "not yet"
     }).then(function() {
     res.redirect('/');
   });
 }
 
 exports.homepage = function(req, res, next) {
-  res.redirect('/build/index.html');
+  res.redirect('/index.html');
 }
