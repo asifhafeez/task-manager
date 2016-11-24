@@ -10,7 +10,6 @@ class AddTask extends Component {
       </form>
         &nbsp;&nbsp;
       <button type="submit" className="addTaskButton" form="addTaskForm" onClick={this.addTask}>Add</button>
-      
       </div>
     );
   }
