@@ -23,5 +23,5 @@ exports.newTask = function (req, res, next) {
 }
 
 exports.homepage = function(req, res, next) {
-  res.redirect('/build/index.html');
+  res.redirect('index.html');
 }

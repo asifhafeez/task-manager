@@ -10,6 +10,6 @@ module.exports = function(app) {
 
   const homepage = express.Router();
   app.use('', homepage)
-  app.use(express.static('public'));
+  app.use(express.static('public/build'));
   homepage.get('/',  _ourController.homepage)
 }
