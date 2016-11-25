@@ -6,20 +6,20 @@ import AddTask from './addTask';
 import superagent from 'superagent';
 
 class TaskList extends Component {
-  render() {
-    return(
-      <div className="TaskList">
-      <AddTask addTask={ this.addTask } className="addTask" />
-      </div>
-    );
-  }
+  // render() {
+  //   return(
+  //     <div className="TaskList">
+  //     <AddTask addTask={ this.addTask } className="addTask" />
+  //     </div>
+  //   );
+  // }
 
   constructor(props) {
     super(props);
     // this.state =  { tasks: [ "Becoming an awesome dev", "Get paid lots of $$$", "Buy Mary some chocolates" ] };
-    this.addTask = this.addTask.bind(this);
-    this.getTasks = this.getTasks.bind(this);
-    this.renderTasks = this.renderTasks.bind(this);
+    // this.addTask = this.addTask.bind(this);
+    // this.getTasks = this.getTasks.bind(this);
+    // this.renderTasks = this.renderTasks.bind(this);
     {var self = this;
       this.getTasks(function(json) {
         self.renderTasks(json)
@@ -41,7 +41,8 @@ class TaskList extends Component {
 
   renderTasks(json) {
       ReactDOM.render(
-          <div>
+          <div className="TaskList">
+            <AddTask className="addTask" />
             {json.tasks.map(function(task) {
               return <div><Task key={task.id} description={task.description}/></div>;
             })};
@@ -56,9 +57,9 @@ class TaskList extends Component {
   // console.log(self.state.tasks);
   // self.renderTasks();
 
-  addTask(newDescription) {
-    this.setState({ tasks: [...this.state.tasks, newDescription] });
-  }
+  // addTask(newDescription) {
+  //   this.setState({ tasks: [...this.state.tasks, newDescription] });
+  // }
 
   getTasks(callback) {
     var self = this;
