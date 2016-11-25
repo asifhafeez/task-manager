@@ -29,6 +29,13 @@ class AddTask extends Component {
     this.props.addTask(this.state.description);
     this.setState({ description: ""})
   }
+
+  removeTask() {
+   this.props.removeTask(this.props.description);
+ }
+ 
 }
+
+
 
 export default AddTask;
