@@ -1,12 +1,16 @@
 import React from 'react';
 import './App.css';
-import Task from './Task';
-import TaskList from './TaskList'
+// import Task from './Task';
+import TaskList from './TaskList';
+import superagent from 'superagent';
 
-const App = () => {
+
+const App = (props) => {
   return (<div className="App">
-          <TaskList/>
-          </div>);
-};
+              <TaskList data = { props.data.tasks } />
+              </div>);
+    };
+
+
 
 export default App;
