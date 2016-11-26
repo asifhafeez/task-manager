@@ -12,6 +12,6 @@ it("creates a list of task", () => {
   const renderer = ReactTestUtils.createRenderer();
   renderer.render(< TaskList data = { dummyData.tasks }/>, 'div');
   const result = renderer.getRenderOutput();
-  expect(result.props.children[1][0].props.children.props.description).toEqual('Domain Modelling');
+  expect(result.props.children[1][0].props.description).toEqual('Domain Modelling');
   expect(result.props.children[1].length).toEqual(2);
 });

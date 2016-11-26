@@ -10,38 +10,48 @@ class TaskList extends Component {
     return(
       <div id="tasklist">
         <AddTask className="addTask" addTask = {this.addTask} />
-        { (this.props.data).map(function(task) {
-          return <div><Task key={task.id} description={task.description} /></div>;
-        })};
-      {this.renderTasks()};
+        { this.renderTasks(this.removeTask) }
       </div>
     )
   };
 
   constructor(props) {
     super(props);
-    this.state = { tasks: []};
+    this.state = { tasks: [], count: 0 };
+    this.createTasks = this.createTasks.bind(this);
     this.addTask = this.addTask.bind(this);
     this.removeTask = this.removeTask.bind(this);
-  }
+  };
+
+  createTasks() {
+    const self = this;
+    if (this.state.tasks.length === 0 && this.state.count === 0) {
+      this.props.data.map(function(task) {
+        const taskInfo = { id: task.id, description: task.description, status: task.status};
+        self.state.tasks.push(taskInfo);
+        if (self.state.count < task.id + 1) { self.state.count ++ };
+      })
+    }
+  };
 
 
-renderTasks() {
-   return this.state.tasks.map(description=> (
-     <Task key={description} description={description} removeTask={this.removeTask}/>
-   ));
- }
+  renderTasks(removeTaskFunction) {
+    this.createTasks()
+    return this.state.tasks.map(task=> (
+       <Task key={task.id} id={task.id} description={task.description} status= {task.status} removeTask={removeTaskFunction}/>
+     ));
+   }
 
- addTask(newDescription) {
-   this.setState({ tasks: [...this.state.tasks, newDescription] });
- }
+   addTask(newDescription) {
+     this.setState({ tasks: [...this.state.tasks, newDescription] });
+   }
 
- removeTask(task) {
-   const filteredTasks = this.state.tasks.filter(description => {
-     return description !== task;
-   });
-   this.setState({ tasks: filteredTasks });
- }
+   removeTask(taskID) {
+     const filteredTasks = this.state.tasks.filter(task => {
+       return task.id !== taskID;
+     });
+     this.setState({ tasks: filteredTasks });
+   }
 }
 
 

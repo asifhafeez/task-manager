@@ -14,7 +14,7 @@ it('shows a task description', () => {
 it('can mark a task as done', function () {
   const testDoc = ReactTestUtils.renderIntoDocument(<Task description='Visit Japan!' />);
   const button = ReactTestUtils.scryRenderedDOMComponentsWithClass(testDoc, "button");
-  expect(testDoc.state.status).not.toContain("is done");
+  expect(testDoc.state.status).not.toBe("");
   ReactTestUtils.Simulate.click(button[0]);
-  expect(testDoc.state.status).toContain("is done");
+  expect(testDoc.state.status).toBe("is done");
 });
