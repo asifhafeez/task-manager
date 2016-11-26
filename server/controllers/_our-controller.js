@@ -15,9 +15,16 @@ exports.tasks = function (req, res, next) {
 }
 
 exports.newTask = function (req, res, next) {
-    console.log(req)
-    models.Task.create({description: req.body.description, status: "not yet"
-    }).then(function() {
+    models.Task.create({description: req.body.description, status: ""})
+    .then(function() {
+      res.redirect('/');
+    });
+}
+
+exports.deleteTask = function (req, res, next) {
+  models.Task.find({where: {id: req.body.delete}}).then(function(task) {
+    return task.destroy()
+  }).then(function() {
     res.redirect('/');
   });
 }

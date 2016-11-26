@@ -8,7 +8,9 @@ class Task extends Component {
         {this.props.description} {this.props.status}
         <br/>
         <button className="button" onClick={this.done}>Done!</button>
-        <button className="remove_button" onClick={this.removeTask}>Remove task</button>
+        <form method="post" action="/api/tasks/delete" id="deleteTaskForm"  >
+        <button name="delete" type="submit" className="remove_button" form="deleteTaskForm" value={this.props.id} onClick={this.removeTask}>Remove task</button>
+        </form>
       </div>
     );
   }
