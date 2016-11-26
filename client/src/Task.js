@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import './Task.css';
+import superagent from 'superagent';
 
 class Task extends Component {
   render () {
     return (
       <div className="Task" id={this.props.id}>
-        {this.props.description} {this.props.status}
+        {this.props.description} {this.state.status}
         <br/>
         <button className="button" onClick={this.done}>Done!</button>
-        <form method="post" action="/api/tasks/delete" id="deleteTaskForm"  >
-        <button name="delete" type="submit" className="remove_button" form="deleteTaskForm" value={this.props.id} onClick={this.removeTask}>Remove task</button>
-        </form>
+        <button type="button" className="remove_button" onClick={this.removeTask}>Remove task</button>
       </div>
     );
   }
@@ -24,6 +23,11 @@ class Task extends Component {
 
   done() {
     this.setState({ status: "is done"})
+    superagent.post('api/tasks/status')
+    .send({ id: this.state.id, status: "is done" })
+    .end(function(err, res){
+      if (err) { console.log(err) }
+     });
   }
 
   removeTask() {

@@ -1,11 +1,5 @@
 var models = require('../models');
 
-exports.index = function (req, res, next) {
-  res.status(200).json({
-    message: "Visit Japan"
-  })
-}
-
 exports.tasks = function (req, res, next) {
   models.Task.findAll().then(function(tasks){
     res.status(200).json({
@@ -22,11 +16,16 @@ exports.newTask = function (req, res, next) {
 }
 
 exports.deleteTask = function (req, res, next) {
-  models.Task.find({where: {id: req.body.delete}}).then(function(task) {
-    return task.destroy()
-  }).then(function() {
-    res.redirect('/');
-  });
+  models.Task.find({where: {id: req.body.id}}).then(function(task) {
+    return task.destroy();
+  })
+}
+
+exports.updateStatus = function (req, res, next) {
+  console.log(req.body);
+  models.Task.find({ where: {id: req.body.id} }).then(function(task) {
+    return task.update({ status: req.body.status });
+  })
 }
 
 exports.homepage = function(req, res, next) {

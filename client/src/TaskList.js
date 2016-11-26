@@ -51,6 +51,11 @@ class TaskList extends Component {
        return task.id !== taskID;
      });
      this.setState({ tasks: filteredTasks });
+     superagent.post("/api/tasks/delete")
+     .send({ id: taskID })
+     .end(function(err, res){
+       if (err) { console.log(err) }
+      });
    }
 }
 
