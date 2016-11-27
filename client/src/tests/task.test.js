@@ -12,9 +12,20 @@ it('shows a task description', () => {
 });
 
 it('can mark a task as done', function () {
-  const testDoc = ReactTestUtils.renderIntoDocument(<Task description='Visit Japan!' />);
+  const testDoc = ReactTestUtils.renderIntoDocument(<Task description='Visit Japan!' status=""/>);
   const button = ReactTestUtils.scryRenderedDOMComponentsWithClass(testDoc, "button");
-  expect(testDoc.state.status).not.toBe("");
+  expect(testDoc.state.status).toBe("");
   ReactTestUtils.Simulate.click(button[0]);
   expect(testDoc.state.status).toBe("is done");
+});
+
+it('can unmark a task as done', function () {
+  const testDoc = ReactTestUtils.renderIntoDocument(<Task description='Visit Japan!' status=""/>);
+  const button = ReactTestUtils.scryRenderedDOMComponentsWithClass(testDoc, "button");
+  ReactTestUtils.Simulate.click(button[0]);
+  expect(testDoc.state.status).toBe("is done");
+  expect(testDoc.state.button_status).toBe("Undo");
+  ReactTestUtils.Simulate.click(button[0]);
+  expect(testDoc.state.status).toBe("");
+  expect(testDoc.state.button_status).toBe("Done");
 });
