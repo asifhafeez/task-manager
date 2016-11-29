@@ -1,7 +1,7 @@
 var models = require('../models');
 
 exports.tasks = function (req, res, next) {
-  models.Task.findAll().then(function(tasks){
+  models.Task.findAll({include: [{model: models.Tag}]}).then(function(tasks){
     res.status(200).json({
       tasks
     })
@@ -22,9 +22,32 @@ exports.deleteTask = function (req, res, next) {
 }
 
 exports.updateStatus = function (req, res, next) {
-  console.log(req.body);
   models.Task.find({ where: {id: req.body.id} }).then(function(task) {
     return task.update({ status: req.body.status });
+  })
+}
+
+exports.addTag = function (req, res, next) {
+  models.Task.find({ where: {id: req.body.id} }).then(function(task) {
+    models.Tag.findOrCreate({where: {name: req.body.tag}}).then(function(tag) {
+      return task.addTag([tag[0].id]);
+    })
+  })
+}
+
+exports.tags = function (req, res, next) {
+  models.Tag.findAll().then(function(tags){
+    res.status(200).json({
+      tags
+    })
+  })
+}
+
+exports.tasktags = function (req, res, next) {
+  models.TaskTag.findAll().then(function(tags){
+    res.status(200).json({
+      tags
+    })
   })
 }
 

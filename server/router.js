@@ -7,6 +7,9 @@ module.exports = function(app) {
   apiRoutes.post('/tasks', _ourController.newTask);
   apiRoutes.post('/tasks/delete', _ourController.deleteTask);
   apiRoutes.post('/tasks/status', _ourController.updateStatus);
+  apiRoutes.post('/tasks/tag', _ourController.addTag);
+  apiRoutes.get('/tags', _ourController.tags);
+  apiRoutes.get('/tasktags', _ourController.tasktags);
   app.use('/api', apiRoutes);
 
   const homepage = express.Router();

@@ -10,6 +10,10 @@ class Task extends Component {
         <br/>
         <button className="button" onClick={this.done}>{this.buttonChecker(this.state.status)}</button>
         <button type="button" className="remove_button" onClick={this.removeTask}>Remove task</button>
+        <input type="text" className="tagInput"onChange={this.handleUpdate}/>
+        &nbsp;&nbsp;
+        <button className="addTag" onClick={this.addTag}>Add tag</button>
+        <div> {this.state.taskTags.map(taskTag => (taskTag + ' '))} </div>
       </div>
     );
   }
@@ -17,10 +21,12 @@ class Task extends Component {
   constructor(props) {
     super(props);
     var button = this.buttonChecker(props.status)
-    this.state = { status: props.status, id: props.id, button_status: button };
+    this.state = { status: props.status, id: props.id, button_status: button, taskTags: []};
     this.done = this.done.bind(this);
     this.removeTask = this.removeTask.bind(this);
     this.buttonChecker = this.buttonChecker.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
+    this.addTag = this.addTag.bind(this);
   }
 
   buttonChecker(status) {
@@ -52,6 +58,21 @@ class Task extends Component {
   removeTask() {
     this.props.removeTask(this.state.id);
   }
+
+  handleUpdate(event) {
+     this.setState({ taskTag: event.target.value});
+   }
+
+   addTag() {
+     this.setState({ taskTags: [...this.state.taskTags, this.state.taskTag] });
+     superagent.post('api/tasks/tag')
+     .send({ id: this.state.id, tag: this.state.taskTag })
+     .end(function(err, res){
+       if (err) { console.log(err) }
+      });
+    this.setState({ taskTag: ""});
+   }
+
 };
 
 export default Task;
