@@ -7,14 +7,24 @@ class Task extends Component {
   render () {
     return (
       <div className="Task" id={this.props.id}>
-        {this.props.description} {this.state.status}
-        <br/>
-        <button className="button" onClick={this.done}>{this.buttonChecker(this.state.status)}</button>
-        <button type="button" className="remove_button" onClick={this.removeTask}>Remove task</button>
-        <input type="text" ref="input" className="tagInput" onChange={this.handleUpdate}/>
-        &nbsp;&nbsp;
-        <button className="addTag" onClick={this.addTag}>Add tag</button>
-        <div> {this.props.tags.map(tag => (tag.name + ' '))}{this.state.tags.map(tag => (tag.name + ' '))} </div>
+        <div className="left">
+          <div className="text">{this.props.description} </div>
+          <br></br>
+          <button type="button" className="remove_button" onClick={this.removeTask}>Delete task</button>
+          <div className="tagInput">
+            <input type="text" ref="input" className="tagInput" onChange={this.handleUpdate}/>
+            <button className="addTag" onClick={this.addTag}>Add tag</button>
+          </div>
+          <div className="tags"> {this.props.tags.map(tag => (tag.name + ' '))}{this.state.tags.map(tag => (tag.name + ' '))} </div>
+        </div>
+        <a onClick={this.done}>
+          <div className="checkbox">
+            <img className="box" src='http://csdms.colorado.edu/mediawiki/images/archive/20110601151736!Checkbox.png'/>
+            {this.state.status === "is done" ?
+            <img className="tick" src='http://www.clipartbest.com/cliparts/dT6/okx/dT6okxEbc.png'/>
+            : null }
+          </div>
+        </a>
       </div>
     );
   }
@@ -22,7 +32,7 @@ class Task extends Component {
   constructor(props) {
     super(props);
     var button = this.buttonChecker(props.status)
-    this.state = { status: props.status, id: props.id, button_status: button, tags: []};
+    this.state = { status: props.status, id: props.id, button_status: button, tags: [], done: (props.status === "is done"), newTag: ""};
     this.done = this.done.bind(this);
     this.removeTask = this.removeTask.bind(this);
     this.buttonChecker = this.buttonChecker.bind(this);
@@ -62,6 +72,7 @@ class Task extends Component {
 
   handleUpdate(event) {
      this.setState({ newTag: event.target.value});
+     console.log("HELLO")
    }
 
    addTag() {

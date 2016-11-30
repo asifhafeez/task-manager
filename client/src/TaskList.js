@@ -9,6 +9,7 @@ class TaskList extends Component {
   render () {
     return(
       <div id="tasklist">
+        <h1 className="header"> Do Life</h1>
         <AddTask key="addTask" addTask = {this.addTask} />
         { this.renderTasks(this.removeTask) }
       </div>
@@ -36,6 +37,7 @@ class TaskList extends Component {
 
   renderTasks(removeTaskFunction) {
     this.createTasks()
+    console.log(this.state.tasks);
     return this.state.tasks.map(task=> (
        <Task key={task.id} id={task.id} description={task.description} status= {task.status} tags= {task.Tags} removeTask={removeTaskFunction}/>
      ));

@@ -9,7 +9,7 @@ class AddTask extends Component {
         <input type="text" name="description" className="taskInput"onChange={this.handleUpdate}/>
       </form>
         &nbsp;&nbsp;
-      <button type="submit" className="addTaskButton" form="addTaskForm" onClick={this.addTask}>Add</button>
+      <button type="submit" className="addTaskButton" form="addTaskForm" onClick={this.addTask}>Add a Task</button>
       </div>
     );
   }
