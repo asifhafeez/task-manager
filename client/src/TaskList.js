@@ -9,7 +9,7 @@ class TaskList extends Component {
   render () {
     return(
       <div id="tasklist">
-        <AddTask className="addTask" addTask = {this.addTask} />
+        <AddTask key="addTask" addTask = {this.addTask} />
         { this.renderTasks(this.removeTask) }
       </div>
     )
@@ -27,8 +27,7 @@ class TaskList extends Component {
     const self = this;
     if (this.state.tasks.length === 0 && this.state.count === 0) {
       this.props.data.map(function(task) {
-        const taskInfo = { id: task.id, description: task.description, status: task.status};
-        self.state.tasks.push(taskInfo);
+        self.state.tasks.push(task);
         if (self.state.count < task.id + 1) { self.state.count ++ };
       })
     }
@@ -38,7 +37,7 @@ class TaskList extends Component {
   renderTasks(removeTaskFunction) {
     this.createTasks()
     return this.state.tasks.map(task=> (
-       <Task key={task.id} id={task.id} description={task.description} status= {task.status} removeTask={removeTaskFunction}/>
+       <Task key={task.id} id={task.id} description={task.description} status= {task.status} tags= {task.Tags} removeTask={removeTaskFunction}/>
      ));
    }
 

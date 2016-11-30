@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Task.css';
+import ReactDOM from 'react-dom';
 import superagent from 'superagent';
 
 class Task extends Component {
@@ -10,10 +11,10 @@ class Task extends Component {
         <br/>
         <button className="button" onClick={this.done}>{this.buttonChecker(this.state.status)}</button>
         <button type="button" className="remove_button" onClick={this.removeTask}>Remove task</button>
-        <input type="text" className="tagInput"onChange={this.handleUpdate}/>
+        <input type="text" ref="input" className="tagInput" onChange={this.handleUpdate}/>
         &nbsp;&nbsp;
         <button className="addTag" onClick={this.addTag}>Add tag</button>
-        <div> {this.state.taskTags.map(taskTag => (taskTag + ' '))} </div>
+        <div> {this.props.tags.map(tag => (tag.name + ' '))}{this.state.tags.map(tag => (tag.name + ' '))} </div>
       </div>
     );
   }
@@ -21,7 +22,7 @@ class Task extends Component {
   constructor(props) {
     super(props);
     var button = this.buttonChecker(props.status)
-    this.state = { status: props.status, id: props.id, button_status: button, taskTags: []};
+    this.state = { status: props.status, id: props.id, button_status: button, tags: []};
     this.done = this.done.bind(this);
     this.removeTask = this.removeTask.bind(this);
     this.buttonChecker = this.buttonChecker.bind(this);
@@ -60,17 +61,17 @@ class Task extends Component {
   }
 
   handleUpdate(event) {
-     this.setState({ taskTag: event.target.value});
+     this.setState({ newTag: event.target.value});
    }
 
    addTag() {
-     this.setState({ taskTags: [...this.state.taskTags, this.state.taskTag] });
+     this.setState({ tags: [...this.state.tags, {name: this.state.newTag}] });
      superagent.post('api/tasks/tag')
-     .send({ id: this.state.id, tag: this.state.taskTag })
+     .send({ id: this.state.id, tag: this.state.newTag })
      .end(function(err, res){
        if (err) { console.log(err) }
       });
-    this.setState({ taskTag: ""});
+      this.refs.input.value = "";
    }
 
 };

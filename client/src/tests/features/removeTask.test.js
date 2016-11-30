@@ -7,7 +7,7 @@ import AddTask from './../../addTask';
 import TaskList from './../../TaskList';
 
 it("can remove a task", () => {
-  const dummyJson = '{"tasks":[{"id":8,"description":"Domain Modelling","status":"","createdAt":"2016-11-25T09:14:42.062Z","updatedAt":"2016-11-25T09:14:42.062Z"},{"id":9,"description":"Sleep!","status":"not yet","createdAt":"2016-11-25T10:38:03.882Z","updatedAt":"2016-11-25T10:38:03.882Z"}]}';
+  const dummyJson = '{"tasks":[{"id":8,"description":"Domain Modelling","status":""},{"id":9,"description":"Sleep!","status":""}]}';
   const dummyData = JSON.parse(dummyJson);
   const taskList = ReactTestUtils.renderIntoDocument(<TaskList data = { dummyData.tasks }/>);
   const button = ReactTestUtils.scryRenderedDOMComponentsWithClass(taskList, "remove_button");

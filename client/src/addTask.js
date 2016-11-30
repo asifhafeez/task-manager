@@ -33,7 +33,7 @@ class AddTask extends Component {
   removeTask() {
    this.props.removeTask(this.props.description);
  }
- 
+
 }
 
 
