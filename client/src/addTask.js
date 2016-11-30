@@ -5,9 +5,11 @@ class AddTask extends Component {
   render () {
     return (
       <div className="addTask">
-      <input type="text" className="taskInput"onChange={this.handleUpdate}/>
-      &nbsp;&nbsp;
-      <button className="addTaskButton" onClick={this.addTask}>Add</button>
+      <form method="post" action="/api/tasks" id="addTaskForm" >
+        <input type="text" name="description" className="taskInput"onChange={this.handleUpdate}/>
+      </form>
+        &nbsp;&nbsp;
+      <button type="submit" className="addTaskButton" form="addTaskForm" onClick={this.addTask}>Add a Task</button>
       </div>
     );
   }
@@ -20,12 +22,20 @@ class AddTask extends Component {
 
   handleUpdate(event) {
     this.setState({ description: event.target.value});
+
   }
 
   addTask() {
     this.props.addTask(this.state.description);
     this.setState({ description: ""})
   }
+
+  removeTask() {
+   this.props.removeTask(this.props.description);
+ }
+
 }
+
+
 
 export default AddTask;

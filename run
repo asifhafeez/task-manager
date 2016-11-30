@@ -1,0 +1,11 @@
+
+#!/bin/bash
+
+rm -r server/public/build
+
+cd client
+
+npm run build
+
+mv build ../server/public
+

@@ -6,10 +6,13 @@ import Task from '../Task';
 import TaskList from '../TaskList';
 
 
-it("creates a list of task", () => {
+it("creates a list of tasks with tags", () => {
+  const dummyJson = '{"tasks":[{"id":8,"description":"Domain Modelling","status":"", "Tags":[{"id":3,"name":"Coding"}]},{"id":9,"description":"Sleep!","status":"", "Tags":[{"id":4,"name":"Important"}]}]}';
+  const dummyData = JSON.parse(dummyJson);
   const renderer = ReactTestUtils.createRenderer();
-  renderer.render(< TaskList />, 'div');
+  renderer.render(< TaskList data = { dummyData.tasks }/>, 'div');
   const result = renderer.getRenderOutput();
-  expect(result.props.children[1][2].props.description).toEqual("Buy Mary some chocolates");
-  expect(result.props.children[1].length).toEqual(3);
+  expect(result.props.children[1][0].props.description).toEqual('Domain Modelling');
+  expect(result.props.children[1][0].props.tags).toEqual([{"id":3,"name":"Coding"}]);
+  expect(result.props.children[1].length).toEqual(2);
 });
