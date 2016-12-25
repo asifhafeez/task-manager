@@ -11,7 +11,7 @@ Note: You will need a postgres database named "task_development" set up to run t
 
 Download and run the app:
 ```
-$ git clone git@github.com:malinnaleach/task-manager.git
+$ git clone git@github.com:asifhafeez/task-manager.git
 $ cd task-manager
 $ cd client
 $ npm run start
